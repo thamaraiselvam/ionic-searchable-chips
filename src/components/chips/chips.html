@@ -1,0 +1,10 @@
+<div>
+  You can select upto <strong>{{extras?.maxSelect}}</strong> people
+  <ul>
+    <li *ngFor="let item of selectedItems">
+      {{item?.name}}
+      <span *ngIf="item?.name" (click)="remove(item)" class="icon-delete"></span>
+    </li>
+  </ul>
+</div>
+<span (click)="openModal()">+Add</span>

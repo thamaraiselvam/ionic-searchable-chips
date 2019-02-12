@@ -1,0 +1,53 @@
+<ion-content>
+
+  <ion-grid class="filter-model-grid">
+    <ion-row class="filter-model-info">
+      <ion-col col-11>
+        <div [innerHTML]="extras?.title">
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-card class="search-tag-card">
+      <ion-searchbar placeholder="Search Flavors" (ionInput)="filterItems($event)"></ion-searchbar>
+    </ion-card>
+
+
+    <ion-card class="items-list-card">
+      <ion-list>
+
+        <div *ngIf="extras?.key === -1">
+          <ion-item class="item-checkbox-right" *ngFor="let item of listRearrange">
+            <ion-label>{{item?.name || 'N/A'}}</ion-label>
+            <ion-checkbox (click)="selectItem(item)" [(ngModel)]="item.checked"></ion-checkbox>
+          </ion-item>
+        </div>
+
+        <div *ngIf="extras?.maxSelect != -1 && selectedList.length < extras?.maxSelect">
+          <ion-item class="item-checkbox-right" *ngFor="let item of listRearrange">
+            <ion-label>{{item?.name || 'N/A'}}</ion-label>
+            <ion-checkbox disabled="false" (click)="selectItem(item)" [(ngModel)]="item.checked"></ion-checkbox>
+          </ion-item>
+        </div>
+
+        <div *ngIf="extras?.maxSelect != -1 && selectedList.length >= extras?.maxSelect">
+          <ion-item class="item-checkbox-right" *ngFor="let item of listRearrange">
+            <ion-label>{{item?.name || 'N/A'}}</ion-label>
+            <ion-checkbox disabled="{{!item.checked}}" (click)="selectItem(item)" [(ngModel)]="item.checked"></ion-checkbox>
+          </ion-item>
+        </div>
+
+
+      </ion-list>
+    </ion-card>
+    <ion-row class="footer-bar">
+      <ion-col col-6 class="filter-model-cancel">
+        <button ion-button clear (click)="dismiss('cancel')">Cancel</button>
+      </ion-col>
+      <ion-col col-6 class="filter-model-Done">
+        <button ion-button clear (click)="dismiss('save')">Done</button>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+</ion-content>
